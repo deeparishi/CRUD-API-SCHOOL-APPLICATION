@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/student")
 public class StudentController {
     @Autowired
     IStudentService iStudentService;
@@ -67,5 +68,9 @@ public class StudentController {
     @DeleteMapping("/deletebyName/{name}")
     public StudentResponse deleteByName(@PathVariable String name){
         return iStudentService.deleteByName(name);
+    }
+    @GetMapping("/")
+    public String get(){
+        return "index.html";
     }
 }
