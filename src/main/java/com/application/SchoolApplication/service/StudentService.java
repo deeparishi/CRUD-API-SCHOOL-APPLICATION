@@ -6,6 +6,10 @@ import com.application.SchoolApplication.repository.StudentRepo;
 import com.application.SchoolApplication.request.StudentRequest;
 import com.application.SchoolApplication.response.StudentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -137,5 +141,13 @@ public class StudentService implements IStudentService {
         return data;
     }
 
+    public List<Student> findStudentWithSorting(String field){
+        return studentRepos.findAll(Sort.by(Sort.Direction.ASC,field));
+    }
 
+    public Page<Student> getStudentWithPagination(int offset, int pageSize,String field){
+        Sort sort = Sort.by(Sort.Direction.ASC,field);
+        Pageable page = PageRequest.of(offset,pageSize,sort);
+        return studentRepos.findAll(page);
+    }
 }

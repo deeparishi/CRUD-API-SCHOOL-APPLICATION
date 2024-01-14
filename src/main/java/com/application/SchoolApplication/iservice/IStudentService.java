@@ -3,6 +3,7 @@ package com.application.SchoolApplication.iservice;
 import com.application.SchoolApplication.entity.Student;
 import com.application.SchoolApplication.request.StudentRequest;
 import com.application.SchoolApplication.response.StudentResponse;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,8 @@ public interface IStudentService {
     List<StudentResponse> updateAll(List<StudentRequest> studentRequest);
 
     StudentResponse deleteByName(String name);
+
+    public List<Student> findStudentWithSorting(String field);
+
+    public Page<Student> getStudentWithPagination(int offset, int pageSize, String field);
 }

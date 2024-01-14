@@ -5,6 +5,7 @@ import com.application.SchoolApplication.iservice.IStudentService;
 import com.application.SchoolApplication.request.StudentRequest;
 import com.application.SchoolApplication.response.StudentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,7 @@ public class StudentController {
         return iStudentService.createStundent(request);
     }
 
-    @PostMapping("/createlist")
+        @PostMapping("/createlist")
     public List<StudentResponse> createListOfStudents(@RequestBody List<StudentRequest> studentRequests) {
         return iStudentService.createListOfStudents(studentRequests);
     }
@@ -69,8 +70,18 @@ public class StudentController {
     public StudentResponse deleteByName(@PathVariable String name){
         return iStudentService.deleteByName(name);
     }
-    @GetMapping("/")
-    public String get(){
-        return "index.html";
+
+    @GetMapping("/findStudentWithSorting/{field}")
+    public  List<Student> findStudentWithSorting(@PathVariable String field){
+        return iStudentService.findStudentWithSorting(field);
     }
+
+    @GetMapping("/getStudentWithPagination/{pageNumber}/{totalRecord}/{field}")
+    public Page<Student> getStudentWithPagination(@PathVariable int pageNumber, @PathVariable int totalRecord,@PathVariable String field){
+        return iStudentService.getStudentWithPagination(pageNumber,totalRecord,field) ;
+    }
+
+
+
+
 }
